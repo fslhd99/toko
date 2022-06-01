@@ -3,6 +3,8 @@ import { bg1 } from '../../assets';
 import { Button,Input } from '../../component';
 import { Link } from 'react-router-dom'
 import './Login.css' ;
+import axios from 'axios';
+
 const Login = () => {
   return (
     <div className='main-page'>
