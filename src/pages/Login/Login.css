@@ -1,0 +1,22 @@
+.main-page {
+    display: flex;
+    height: 100%;
+    box-sizing: border-box;
+}
+
+.left {
+    flex: 1;
+    height: 100%;
+}
+
+.right {
+    width: 460%;
+    height: 100%; 
+    padding: 30px;
+} 
+.right > .title{
+    font-size: 12px;
+    font-weight: bold;
+    color: #2d2d2d;
+
+} 

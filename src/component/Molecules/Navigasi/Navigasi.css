@@ -1,0 +1,42 @@
+.navigasi{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 15px;
+    background-color: rgb(24, 165, 231);
+}
+
+.navigasi > .logo-app {
+    font-size: 15px;
+    font-weight: bold;
+    
+    color: white;
+    margin: 5px;
+    
+
+}
+
+.navigasi > .nav-right {
+    font-size: 13px;
+    margin: 0 25px 0 30px;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: bold;
+    display: flex;
+    height: 100%;
+    color: white;
+    cursor: pointer;
+}
+
+.navigasi > .nav-right > .menu-item {
+    font-size: 12px;
+    margin: 0 25px 0 20px;
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    text-decoration: none;
+    height: 100%;
+    color: white;
+    cursor: pointer;
+    
+}
