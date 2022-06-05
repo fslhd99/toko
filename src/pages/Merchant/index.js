@@ -1,107 +1,196 @@
 import React, { useState, useEffect } from "react";
 import { Button,Input} from '../../component';
 import './Merchant.css'
+import '../../component/Atoms/Select/Select.css'
 import { MDBDataTableV5 } from 'mdbreact';
 import axios from 'axios';
+import { reactLocalStorage } from "reactjs-localstorage";
 
 
 const Merchant = () =>  {
+    //fungsi .env
+    const API = process.env.REACT_APP_ACCESS_KEY
 
-const [data, setData] = useState({
-          name : "",
-          project_id : "",
-  });
 
-  const handleChange = (e) => {
-    const value = e.target.value;
-    setData({
-      ...data,
-      [e.target.name]: value
-    });
-  };
+    //untuk mengambil data
+    useEffect(() => {
+     
+        getDataMerchant()
+        getDataProject()
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const userData = {
-      name: data.name,
-      project_id: data.project_id
-    };
-    axios.post("https://b7d2-158-140-163-210.ap.ngrok.io/merchants/save", userData).then((response) => {
-      console.log(response.status);
-      console.log(response.data.token);
-    });
-};
+      }, []);
     
-    const [datatablee, setDatatablee] = useState([]);
-        useEffect(() => {
-        getData();
-        }, []);
-
-        async function getData() {
-            await axios
-            .post("https://b7d2-158-140-163-210.ap.ngrok.io/merchants",{
-                page : 1,
-                per_page : 10,
-                name : null
-            })
-            .then((response) => {
-                // check if the data is populated
-                console.log("cekdata" + response.data.response);
-                setDatatablee(response.data.response);
-                // you tell it that you had the result
-            });
+    //menampuilkan datamerchant     
+      const getDataMerchant = () => {
+    
+        const data = {
+          page: 1,
+          per_page: 100,
+          name: null
         }
+        // get data from api
+        axios({
+          method: 'POST',
+          url: API + '/merchants',
+          data,
+          headers:{
+            Authorization: reactLocalStorage.get('token')
+          }
+        })
+        .then(obj => {
+    
+          const res = obj.data
+          if(res.message == "Success"){
+            //Fungsi dari Mengambil/Menampilkan data dari API
+    
+          const projects = res.response // {RESPON} adalah data dari api 
+            if(projects.length > 0){
+              let array_kosong = []
+              projects.map((key, i) => {
+                let aksi = ( 
+                    <div>
+                        <button >Edit</button>
+                        <button onClick={() => btnHapus(key.id)}>Hapus</button>
+                    </div>
+                    )
+                let x = {
+                  No: key.id,
+                  NamaMerchant: key.merchants_name,
+                  Project_id: key.project_id == null ? 0 : key.project_id.length,
+                  JumlahUser: key.usersList == null ? 0 : key.usersList.length,
+                  Aksi: aksi
+                }
+                array_kosong.push(x)
+              })
+              setRows(array_kosong)
+            }
+          }
+        })
+    }
+    const btnHapus = () => {}
+    const [rows, setRows] = useState([])
+    const columns = 
+         [
+          {
+            label: 'No',
+            field: 'No',
+            attributes: {
+              'aria-controls': 'DataTable',
+              'aria-label': 'No',
+            },
+          },
+          {
+            label: 'Nama Merchant',
+            field: 'NamaMerchant',
+          },
+          {
+            label: 'Project',
+            field: 'Project_id',
+          },
+          {
+            label: 'Jumlah User',
+            field: 'JumlahUser',
+          },
+          
+          {
+              label: 'Aksi',
+              field: 'Aksi',
+            },
+          
+        ]
+// Ambil Data untuk Selecet
+    const getDataProject = () => {
 
-        async function insertData() {
-            await axios
-            .post("https://b7d2-158-140-163-210.ap.ngrok.io/merchants/save",{
-                name : "Merchant Empat",
-                project_id : 0,
-                
-            })
-            .then((response) => {
-                // check if the data is populated
-                console.log(response.data);
-            });
+        const data = {
+            page: 1,
+            per_page: 100,
+            name: null
         }
-            const [datatable, setDatatable] = React.useState({
-            columns: [
-                {
-                label: 'No',
-                field: 'No',
-                attributes: {
-                    'aria-controls': 'DataTable',
-                    'aria-label': 'No',
-                },
-                },
-                {
-                label: 'Nama Merchant',
-                field: 'NamaMerchant',
-                },
-                {
-                label: 'Jumlah Merchant',
-                field: 'JumlahMerchant',
-                },
-                {
-                    label: 'Aksi',
-                    field: 'Aksi',
-                },
-                
-            ],
-            rows: [
-                ...this.datatablee.map((data, i) => (
-                    {
-                    No: data.id,
-                    NamaMerchant: data.merchants_name,
-                    jumlahMerchant: data.id,
-                    Aksi: '1234567',
-                    }
-                ))
-            ],
-            });
-  
+        // get data from api
+        axios({
+            method: 'POST',
+            url: API + '/project',
+            data,
+            headers:{
+            Authorization: reactLocalStorage.get('token')
+            }
+        })
+        .then(obj => {
+    
+            const res = obj.data
+            if(res.message == "Success"){
+            //Fungsi dari Mengambil/Menampilkan data dari API
+    
+            const projects = res.response // {RESPON} adalah data dari api 
+            if(projects.length > 0){
+                let array_kosong = []
+                projects.map((key, i) => {
+                let x = {
+                    id: key.id,
+                    isi: key.project_name
+                }
+                array_kosong.push(x)
+                })
+                setDataProject(array_kosong)
+            }
+            }
+        })
+    
+    }
 
+    //Tambah Data
+    const [data_project, setDataProject] = useState([])
+    const [data_project_value, setDataProjectValue] = useState([])
+    const [name, setName] = useState('')
+    //botteninput
+    const btnMerchant = () => {
 
+        if(name === ''){
+          alert("Nama Merchants tidak boleh kosong")
+        }else if (data_project=== '') {
+            alert("Data Project tidak boleh kosong")
+        }else
+        {
+      
+          // data body / api
+          const datas = {
+            name,
+            project_id : data_project_value ,
+            
+          }
+          // axios send post
+          axios({
+            method: 'POST',
+            url: API + '/merchants/save',
+            data: datas,
+            headers:{
+              Authorization: reactLocalStorage.get('token')
+            }
+          })
+          .then(obj => {
+      
+            const res = obj.data
+            console.log(res);
+            if(res.status === 200){
+              // alert if success[
+              // alert('Berhasil mendaftar')
+              console.log("Merchants di tambahkan")
+              setName ('')
+              getDataMerchant()
+            }else{
+      
+              // error dari api
+              alert(res.error.merchants_name)
+            } 
+      
+          })
+          .catch(error => {
+      
+            // error ini dari axios
+            console.log(error)
+          })
+        }
+      }
 
     return (
         <div className='main-page'>
@@ -111,7 +200,10 @@ const [data, setData] = useState({
                     entriesOptions={[5, 20, 25]}
                     entries={5}
                     pagesAmount={4}
-                    data={datatable}
+                    data={{
+                        columns,
+                        rows
+                      }}
                     pagingTop
                     searchTop
                     searchBottom={false}
@@ -120,11 +212,19 @@ const [data, setData] = useState({
             </div>
             <div className='right'>
               <p className='title'>TAMBAH MERCHANT</p>
-              <form onSubmit={handleSubmit}>
-                    <Input type="name" name="name" value={data.name} onChange={handleChange}></Input>
-                    <Input type="project_id" name="project_id" value={data.project_id} onChange={handleChange}></Input>
-                    <Button type="submit" title="TAMBAH"></Button>
-            </form>
+                    <Input type="name" name="name" placeholder="Nama Merchant" onChange={(e) => setName(e.target.value)}  />
+                    
+                    <div className='input-wrapper'>
+                        <select className='input' onChange={ (e) => setDataProjectValue(e.target.value) }>
+                        { 
+                            data_project.map((key, i) => {
+                            return <option key={i} value={key.id}>{key.isi}</option>
+                            })
+                        }
+                        </select>
+                    </div>
+
+                    <Button onClick={ () => btnMerchant() } title="MASUK"></Button>
             </div>   
         </div>
       )

@@ -15,8 +15,8 @@ class Select extends React.Component {
           <div className='input-wrapper'>
             <select className='input' onChange={ (e) => this.setState({value: e.target.value}) }>
               { 
-                this.props.data.map(key => {
-                  return <option value={key.id}>{key.isi}</option>
+                this.props.data.map((key, i) => {
+                  return <option key={i} value={key.id}>{key.isi}</option>
                 })
               }
             </select>

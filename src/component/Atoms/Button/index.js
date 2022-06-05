@@ -1,5 +1,6 @@
 import React from 'react'
 import './button.css';
+
 const Button = ({title, ...rest}) => {
   return (
     <div>

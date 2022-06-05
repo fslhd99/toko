@@ -6,14 +6,9 @@
     background-color: rgb(24, 165, 231);
 }
 
-.navigasi > .logo-app {
-    font-size: 15px;
-    font-weight: bold;
-    
-    color: white;
-    margin: 5px;
-    
-
+.logo-app {
+        height:70px;
+        width: 70px; 
 }
 
 .navigasi > .nav-right {
