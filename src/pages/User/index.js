@@ -69,7 +69,7 @@ const User = () => {
               Password: key.password,
               Email: key.email,
               NamaMerchant: key.merchant_id === null ? '-' :key.merchant_id,
-              Balance: formatRupiah(String(key.balance), 'Rp. '),
+              Balance: formatRupiah(String(Math.round(key.balance)), 'Rp. '),
               // JumlahUser: key.usersList === null ? 0 : key.usersList.length,
               Aksi: aksi
             }

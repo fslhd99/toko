@@ -8,7 +8,7 @@ import {reactLocalStorage} from 'reactjs-localstorage';
 
 
 const Login = () => {
-
+  const API = process.env.REACT_APP_ACCESS_KEY
   const [x, setX] = useState('')
   const [z, setZ] = useState('')
   const navigate = useNavigate()
@@ -16,7 +16,8 @@ const Login = () => {
   // format penggunaan state
   // [value, fungsi buat rubah value (dari input)] = nilai awal
 
-  const API = process.env.REACT_APP_ACCESS_KEY
+ 
+
   const btnLogin = () => {
 
     const t = {
