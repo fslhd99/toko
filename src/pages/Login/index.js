@@ -6,7 +6,7 @@ import './Login.css' ;
 import axios from 'axios';
 import {reactLocalStorage} from 'reactjs-localstorage';
 
-const API = process.env.REACT_APP_ACCESS_KEY
+
 const Login = () => {
 
   const [x, setX] = useState('')
@@ -14,8 +14,9 @@ const Login = () => {
   const navigate = useNavigate()
 
   // format penggunaan state
-  // [value, fungsi gwe rubah value (dari input)] = nilai awal
+  // [value, fungsi buat rubah value (dari input)] = nilai awal
 
+  const API = process.env.REACT_APP_ACCESS_KEY
   const btnLogin = () => {
 
     const t = {

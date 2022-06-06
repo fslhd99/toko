@@ -15,8 +15,11 @@ const User = () => {
     getDataUser()
     getDataMerchant()
   }, []);
+ // Proses pengambilan URL API
 
   const API = process.env.REACT_APP_ACCESS_KEY
+//
+//button Hapus
   const btnHapus = hapus => {
     
     // axios request delete by user_id
@@ -44,10 +47,10 @@ const User = () => {
     .then(obj => {
 
       const res = obj.data
-      if(res.message == "Success"){
+      if(res.message === "Success"){
         //Fungsi dari Mengambil/Menampilkan data dari API
 
-      const User = res.response // {RESPON} adalah data dari api 
+      const User = res.response // (RESPON) adalah data dari api 
         if(User.length > 0){
           let tampil_tabel = []
           User.map((key) => {
@@ -65,9 +68,9 @@ const User = () => {
               Username: key.username,
               Password: key.password,
               Email: key.email,
-              NamaMerchant: key.merchant_id == null ? 0 :key.merchant_id.length,
+              NamaMerchant: key.merchant_id === null ? '-' :key.merchant_id,
               Balance: formatRupiah(String(key.balance), 'Rp. '),
-              // JumlahUser: key.usersList == null ? 0 : key.usersList.length,
+              // JumlahUser: key.usersList === null ? 0 : key.usersList.length,
               Aksi: aksi
             }
             tampil_tabel.push(x)
@@ -92,8 +95,8 @@ const formatRupiah = (angka, prefix) => {
     rupiah += separator + ribuan.join('.');
   }
 
-  rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
-  return prefix == undefined ? rupiah : (rupiah ? 'Rp. ' + rupiah : '');
+  rupiah = split[1] !== undefined ? rupiah + ',' + split[1] : rupiah;
+  return prefix === undefined ? rupiah : (rupiah ? 'Rp. ' + rupiah : '');
 }
 
 //mengambil data merchent 
@@ -116,7 +119,7 @@ const getDataMerchant= () => {
   .then(obj => {
 
       const res = obj.data
-      if(res.message == "Success"){
+      if(res.message === "Success"){
       //Fungsi dari Mengambil/Menampilkan data dari API
 
       const merchants = res.response // {RESPON} adalah data dari api 

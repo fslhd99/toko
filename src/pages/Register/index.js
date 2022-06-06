@@ -37,7 +37,7 @@ const Register = () => {
         merchant_id: null,
         balance: 0
       }
-
+      const API = process.env.REACT_APP_ACCESS_KEY
       // axios send post
       axios({
         method: 'POST',

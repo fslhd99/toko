@@ -36,7 +36,7 @@ const Project = () => {
     .then(obj => {
 
       const res = obj.data
-      if(res.message == "Success"){
+      if(res.message === "Success"){
         //Fungsi dari Mengambil/Menampilkan data dari API
 
       const projects = res.response // {RESPON} adalah data dari api 

@@ -40,7 +40,7 @@ const Merchant = () =>  {
         .then(obj => {
     
           const res = obj.data
-          if(res.message == "Success"){
+          if(res.message === "Success"){
             //Fungsi dari Mengambil/Menampilkan data dari API
     
           const projects = res.response // {RESPON} adalah data dari api 
@@ -56,8 +56,8 @@ const Merchant = () =>  {
                 let x = {
                   No: key.id,
                   NamaMerchant: key.merchants_name,
-                  Project_id: key.project_id == null ? 0 : key.project_id.length,
-                  JumlahUser: key.usersList == null ? 0 : key.usersList.length,
+                  Project_id: key.project_id === null ? '-' : key.project_id,
+                  JumlahUser: key.usersList === null ? 0 : key.usersList.length,
                   Aksi: aksi
                 }
                 array_kosong.push(x)
@@ -118,7 +118,7 @@ const Merchant = () =>  {
         .then(obj => {
     
             const res = obj.data
-            if(res.message == "Success"){
+            if(res.message === "Success"){
             //Fungsi dari Mengambil/Menampilkan data dari API
     
             const projects = res.response // {RESPON} adalah data dari api 
