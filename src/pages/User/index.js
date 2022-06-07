@@ -174,7 +174,7 @@ const btnUser = () => {
     // axios send post
     axios({
       method: 'POST',
-      url: 'https://b7d2-158-140-163-210.ap.ngrok.io/users/register',
+      url: API + '/users/register',
       data: datas,
       headers:{
         Authorization: reactLocalStorage.get('token')
@@ -188,6 +188,7 @@ const btnUser = () => {
         // alert if success[
         // alert('Berhasil mendaftar')
         console.log("User di tambahkan")
+        setUsername('')
         getDataUser()
       }else{
 
